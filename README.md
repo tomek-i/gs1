@@ -1,3 +1,1 @@
-# GS1
-
-GS1 Barcoding
+gs1-parser

@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{DB80BE79-54B8-4B34-8803-C607347CC4EB}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TI.GS1</RootNamespace>
+    <AssemblyName>TI.GS1</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Parser\AI\BatchNumber.cs" />
+    <Compile Include="Parser\AI\BestBeforeDate.cs" />
+    <Compile Include="Parser\AI\GS1CountOfTradeItems.cs" />
+    <Compile Include="Parser\AI\EAN_Content.cs" />
+    <Compile Include="Parser\AI\other\BilateralApplication.cs" />
+    <Compile Include="Parser\AI\other\Customer_Part_Number.cs" />
+    <Compile Include="Parser\AI\other\DueDate.cs" />
+    <Compile Include="Parser\AI\other\EAN.cs" />
+    <Compile Include="Parser\AI\other\ExpirationDate.cs" />
+    <Compile Include="Parser\AI\other\GlobalIdentifierSerialisedForTrade.cs" />
+    <Compile Include="Parser\AI\other\LogisticMeasure\Logistic_GrossVolume_CubicMeters.cs" />
+    <Compile Include="Parser\AI\other\LogisticMeasure\Logistic_GrossVolume_Liters.cs" />
+    <Compile Include="Parser\AI\other\LogisticMeasure\Logistic_GrossWeight_Pounds.cs" />
+    <Compile Include="Parser\AI\other\LogisticMeasure\Logistic_Length_Inches.cs" />
+    <Compile Include="Parser\AI\other\LogisticMeasure\Logistic_Surface_SquareMeter.cs" />
+    <Compile Include="Parser\AI\other\LogisticMeasure\Logsitic_GrossWeight_Kilogram.cs" />
+    <Compile Include="Parser\AI\other\Unprocessed\HIBCCNumber.cs" />
+    <Compile Include="Parser\AI\other\Unprocessed\PackingDate.cs" />
+    <Compile Include="Parser\AI\other\Unprocessed\ProducerDate.cs" />
+    <Compile Include="Parser\AI\other\Unprocessed\ProductModel.cs" />
+    <Compile Include="Parser\AI\other\Unprocessed\SerialNumber.cs" />
+    <Compile Include="Parser\AI\other\Unprocessed\SerialNumberOfAIntegratedModule.cs" />
+    <Compile Include="Parser\AI\other\VariableMeasure\Count_Of_Items.cs" />
+    <Compile Include="Parser\AI\other\VariableMeasure\Height_Feet.cs" />
+    <Compile Include="Parser\AI\other\VariableMeasure\Height_Inches.cs" />
+    <Compile Include="Parser\AI\other\VariableMeasure\Height_Meter.cs" />
+    <Compile Include="Parser\AI\other\VariableMeasure\Height_Yards.cs" />
+    <Compile Include="GS1Barcode.cs" />
+    <Compile Include="Parser\GS1BarcodeItem.cs" />
+    <Compile Include="Parser\AI\SSCC.cs" />
+    <Compile Include="Parser\DataType.cs" />
+    <Compile Include="Parser\GS1BarcodeParser.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Parser\AI\other\README.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GS1API\TI.GS1.API.csproj">
+      <Project>{bbe60872-4490-4833-8bad-1a871aa263c3}</Project>
+      <Name>TI.GS1.API</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
