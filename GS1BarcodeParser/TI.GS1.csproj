@@ -37,6 +37,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions\BarcodeExtensions.cs" />
     <Compile Include="Parser\AI\BatchNumber.cs" />
     <Compile Include="Parser\AI\BestBeforeDate.cs" />
     <Compile Include="Parser\AI\GS1CountOfTradeItems.cs" />

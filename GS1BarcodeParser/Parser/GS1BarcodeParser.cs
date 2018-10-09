@@ -111,15 +111,29 @@ namespace TI.GS1.Parser
             {
                 // get the AI sub string
                 string ai = data.Substring(index, i);
+
                 if (usePlaceHolder)
-                    ai = ai.Remove(ai.Length - 1) + "d";
+                {
+                    try
+                    {
+                        ai = ai.Remove(ai.Length - 1) + "d";
+                    }
+                    catch (ArgumentOutOfRangeException argException)
+                    {
+                        //NOTE: if it fails maybe ignore and break out of the for loop since this GS1.AI doesn't exist?
+
+                        throw new ArgumentOutOfRangeException($"AI Remove threw an exception with placeholder: {ai}{Environment.NewLine}Data: {data}", argException);
+                    }
+
+                }
+
 
                 if (ApplicationItemDictionary.TryGetValue(ai, out result))
                 {
                     index += i;
                     return (GS1BarcodeItem)result;
                 }
-                // if no AI found, try it with the next lenght
+                // if no AI found, try it with the next length
             }
             // if no AI found here, than try it with placeholders. Assumed that is the first sep where usePlaceHolder is false
             if (!usePlaceHolder)
