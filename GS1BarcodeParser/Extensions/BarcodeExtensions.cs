@@ -7,6 +7,10 @@ using TI.GS1.API;
 
 namespace TI.GS1.Extensions
 {
+
+    /// <summary>
+    /// Extension methods for convinience
+    /// </summary>
     public static class BarcodeExtensions
     {
 

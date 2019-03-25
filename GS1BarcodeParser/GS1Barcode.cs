@@ -7,11 +7,17 @@ using TI.GS1.Parser;
 namespace TI.GS1
 {
     // ReSharper disable once InconsistentNaming
+
+    /// <summary>
+    /// GS1 conform Barcode
+    /// </summary>
     public sealed class GS1Barcode : IGS1Barcode
     {
 
         public string Barcode { get; internal set; }
-        public string BarcodeReadable { get
+        public string BarcodeReadable
+        {
+            get
             {
                 StringBuilder sb = new StringBuilder();
                 foreach (var segment in Segments)
@@ -19,7 +25,8 @@ namespace TI.GS1
                     sb.Append($"{segment} ");
                 }
                 return sb.ToString().TrimEnd();
-            } }
+            }
+        }
         public IList<IGS1Item> Segments { get; private set; }
 
         public IGS1BarcodeParser BarcodeParser { get; private set; }
@@ -30,11 +37,11 @@ namespace TI.GS1
             ReparseSegments(parser);
 
         }
-        public GS1Barcode(string barcode):
+        public GS1Barcode(string barcode) :
             this(barcode, new GS1BarcodeParser())
         {
-            
-            
+
+
 
         }
 
@@ -57,15 +64,15 @@ namespace TI.GS1
         {
             return Segments.OfType<T>().Select(item => item).SingleOrDefault();
         }
-        
+
         public T GetSegment<T>(string applicationIdentifier) where T : IGS1Item
         {
-            return  (T)GetSegment(applicationIdentifier);
+            return (T)GetSegment(applicationIdentifier);
         }
 
         public IGS1Item GetSegment(string applicationIdentifier)
         {
-           return Segments.Select(item => item).SingleOrDefault(x => x.Id == applicationIdentifier);
+            return Segments.Select(item => item).SingleOrDefault(x => x.Id == applicationIdentifier);
         }
 
         public void ReparseSegments()
