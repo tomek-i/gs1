@@ -12,6 +12,6 @@ namespace TI.GS1.Parser.AI.other.VariableMeasure
             Fnc1 = false;
 
         }
-       
+
     }
 }

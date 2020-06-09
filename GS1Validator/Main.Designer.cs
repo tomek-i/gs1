@@ -1,6 +1,6 @@
 ﻿namespace GS1Validator
 {
-    partial class Form1
+    partial class Main
     {
         /// <summary>
         /// Required designer variable.
@@ -47,6 +47,7 @@
             this.flowLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.flowLayoutPanel1.BackColor = System.Drawing.SystemColors.ControlDark;
             this.flowLayoutPanel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(15, 96);
@@ -58,16 +59,18 @@
             // 
             this.textBoxBarcode.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxBarcode.BackColor = System.Drawing.Color.White;
             this.textBoxBarcode.BarcodeRecievedTime = System.TimeSpan.Parse("00:00:01");
             this.textBoxBarcode.Delay = System.TimeSpan.Parse("00:00:00.5000000");
             this.textBoxBarcode.Location = new System.Drawing.Point(15, 25);
             this.textBoxBarcode.Multiline = true;
             this.textBoxBarcode.Name = "textBoxBarcode";
+            this.textBoxBarcode.ReadOnly = true;
             this.textBoxBarcode.Size = new System.Drawing.Size(425, 65);
             this.textBoxBarcode.TabIndex = 0;
-            this.textBoxBarcode.BarcodeRecieved += new System.EventHandler(this.textBoxBarcode_BarcodeRecieved);
+            this.textBoxBarcode.BarcodeRecieved += new System.EventHandler(this.TextBoxBarcode_BarcodeRecieved);
             // 
-            // Form1
+            // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -75,7 +78,8 @@
             this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBoxBarcode);
-            this.Name = "Form1";
+            this.Name = "Main";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "GS1 Validator";
             this.ResumeLayout(false);
             this.PerformLayout();

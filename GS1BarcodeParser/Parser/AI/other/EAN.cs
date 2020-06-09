@@ -10,6 +10,6 @@ namespace TI.GS1.Parser.AI.other
             LengthOfData = 14;
             Fnc1 = false;
         }
-       
+
     }
 }

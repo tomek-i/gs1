@@ -11,6 +11,6 @@ namespace TI.GS1.Parser.AI.other.Unprocessed
             LengthOfData = 30;
             Fnc1 = true;
         }
-       
+
     }
 }

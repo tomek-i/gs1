@@ -10,6 +10,6 @@ namespace TI.GS1.Parser.AI.other.VariableMeasure
             LengthOfData = 8;
             Fnc1 = true;
         }
-        
+
     }
 }

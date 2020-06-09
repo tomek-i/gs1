@@ -3,8 +3,8 @@ using TI.GS1.API;
 
 namespace TI.GS1.Parser
 {
-    // ReSharper disable once InconsistentNaming
-    public abstract class GS1BarcodeItem: IGS1Item
+
+    public abstract class GS1BarcodeItem : IGS1Item
     {
         public string Id { get; internal set; }
         public string Value { get; internal set; }

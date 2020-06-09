@@ -1,6 +1,6 @@
 namespace TI.GS1.Parser.AI.other.Unprocessed
 {
-    public sealed class GS1ProductModel: GS1BarcodeItem
+    public sealed class GS1ProductModel : GS1BarcodeItem
     {
         public GS1ProductModel()
         {
@@ -10,6 +10,6 @@ namespace TI.GS1.Parser.AI.other.Unprocessed
             LengthOfData = 2;
             Fnc1 = false;
         }
-       
+
     }
 }

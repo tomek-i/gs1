@@ -35,12 +35,12 @@ namespace TI.GS1.API
         T GetSegment<T>() where T : IGS1Item;
         T GetSegment<T>(string applicationIdentifier) where T : IGS1Item;
         IGS1Item GetSegment(string applicationIdentifier);
-        
+
         /// <summary>
         /// Re-parse the barcode for GS1 segments
         /// </summary>
         void ReparseSegments();
-        
+
         /// <summary>
         /// Re-parse the barcode for GS1 segments with the specified parser
         /// </summary>

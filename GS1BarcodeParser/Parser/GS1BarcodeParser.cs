@@ -24,7 +24,7 @@ namespace TI.GS1.Parser
         private IList<IGS1Item> FindDerivedTypes(Assembly assembly, Type baseType)
         {
 
-            var availableBarcodeItems =
+            List<IGS1Item> availableBarcodeItems =
                 assembly.GetTypes()
                     .Where(t => t != baseType && baseType.IsAssignableFrom(t))
                     .Select(CreateMaterialInstace)
@@ -42,10 +42,10 @@ namespace TI.GS1.Parser
         {
             ApplicationItemDictionary = new SortedDictionary<string, IGS1Item>();
 
-            var availableBarcodeItems = FindDerivedTypes(Assembly.GetAssembly(GetType()), typeof(GS1BarcodeItem));
-            foreach (var gs1Item in availableBarcodeItems)
+            IList<IGS1Item> availableBarcodeItems = FindDerivedTypes(Assembly.GetAssembly(GetType()), typeof(GS1BarcodeItem));
+            foreach (IGS1Item gs1Item in availableBarcodeItems)
             {
-                var item = (GS1BarcodeItem)gs1Item;
+                GS1BarcodeItem item = (GS1BarcodeItem)gs1Item;
                 ApplicationItemDictionary.Add(item.Id, item);
             }
 
@@ -59,37 +59,40 @@ namespace TI.GS1.Parser
         {
             // cut off the EAN128 start code 
             if (data.StartsWith(Ean128StartCode))
+            {
                 data = data.Substring(Ean128StartCode.Length);
+            }
             // cut off the check sum
             if (HasCheckSum)
+            {
                 data = data.Substring(0, data.Length - 2);
+            }
 
-            IList<IGS1Item> c = new List<IGS1Item>();
-            // GS1Barcode c = new GS1Barcode();
-            //c.Barcode = data;
-            // Dictionary<ApplicationIdentifier, string> result = new Dictionary<ApplicationIdentifier, string>();
-            //BarcodeInformation info = new BarcodeInformation();
+            IList<IGS1Item> gs1List = new List<IGS1Item>();
 
             int index = 0;
             // walkk through the EAN128 code
             while (index < data.Length)
             {
                 // try to get the AI at the current position
-                var ai = GetAi(data, ref index);
+                GS1BarcodeItem ai = GetAi(data, ref index);
                 if (ai == null)
                 {
                     if (throwException)
+                    {
                         throw new InvalidOperationException("AI not found");
-                    return c;
+                    }
+
+                    return gs1List;
                 }
                 // get the data to the current AI
                 string code = GetCode(data, ai, ref index);
                 ai.Value = code;
-                c.Add(ai);
+                gs1List.Add(ai);
                 //result[ai] = code;
             }
 
-            return c;
+            return gs1List;
         }
 
         /// <summary>
@@ -102,7 +105,9 @@ namespace TI.GS1.Parser
         private GS1BarcodeItem GetAi(string data, ref int index, bool usePlaceHolder = false)
         {
             if (data.Length < _minLengthOfAi)
+            {
                 return null;
+            }
 
             IGS1Item result = null;
 
@@ -110,7 +115,21 @@ namespace TI.GS1.Parser
             for (int i = _minLengthOfAi; i <= _maxLengthOfAi; i++)
             {
                 // get the AI sub string
-                string ai = data.Substring(index, i);
+                string ai;
+                try
+                {
+                    ai = data.Substring(index, i);
+                }
+                catch (Exception ex)
+                {
+                    var appException = new ApplicationException("AI substring failed, see inner exception", ex);
+                    appException.Data.Add("data", data);
+                    appException.Data.Add("index", index);
+                    appException.Data.Add("i", i);
+
+                    throw appException;
+                }
+
 
                 if (usePlaceHolder)
                 {
@@ -154,19 +173,54 @@ namespace TI.GS1.Parser
         {
             // get the max lenght to read.
             int lenghtToRead = Math.Min(ai.LengthOfData, barcodeString.Length - index);
-            // get the data of the current AI
-            string data = barcodeString.Substring(index, lenghtToRead);
+
+            string data;
+            try
+            {
+                // get the data of the current AI
+                data = barcodeString.Substring(index, lenghtToRead);
+            }
+            catch (Exception ex)
+            {
+                var appException = new ApplicationException("Data for AI substring failed, see inner exception", ex);
+                appException.Data.Add("barcodeString", barcodeString);
+                appException.Data.Add("index", index);
+                appException.Data.Add("lenghtToRead", lenghtToRead);
+
+                throw appException;
+            }
+
+
+
             // check if the AI support a group seperator
             if (ai.Fnc1)
             {
                 // try to find the index of the group seperator
                 int indexOfGroupTermination = data.IndexOf(GroupSeparator);
                 if (indexOfGroupTermination >= 0)
+                {
                     lenghtToRead = indexOfGroupTermination + 1;
-                // get the data of the current AI till the gorup seperator
-                data = barcodeString.Substring(index, lenghtToRead);
+                }
+
+                try
+                {
+                    // get the data of the current AI till the gorup seperator
+                    data = barcodeString.Substring(index, lenghtToRead);
+                }
+                catch (Exception ex)
+                {
+                    var appException = new ApplicationException("Data for AI substring failed, see inner exception", ex);
+                    appException.Data.Add("barcodeString", barcodeString);
+                    appException.Data.Add("index", index);
+                    appException.Data.Add("lenghtToRead", lenghtToRead);
+
+                    throw appException;
+                }
+
                 if (data.Contains(GroupSeparator.ToString()))
+                {
                     data = data.Remove(data.IndexOf(GroupSeparator), 1);
+                }
             }
 
             // Shift the index to the next

@@ -6,7 +6,7 @@ using TI.GS1.Parser;
 
 namespace TI.GS1
 {
-    // ReSharper disable once InconsistentNaming
+
 
     /// <summary>
     /// GS1 conform Barcode
@@ -20,7 +20,7 @@ namespace TI.GS1
             get
             {
                 StringBuilder sb = new StringBuilder();
-                foreach (var segment in Segments)
+                foreach (IGS1Item segment in Segments)
                 {
                     sb.Append($"{segment} ");
                 }

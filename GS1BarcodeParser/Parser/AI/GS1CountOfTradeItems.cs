@@ -12,5 +12,5 @@ namespace TI.GS1.Parser.AI
             Fnc1 = true;
         }
     }
-   
+
 }

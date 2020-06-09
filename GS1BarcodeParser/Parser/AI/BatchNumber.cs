@@ -1,8 +1,8 @@
 namespace TI.GS1.Parser.AI
 {
-    public sealed class GS1BatchNumber: GS1BarcodeItem
+    public sealed class GS1BatchNumber : GS1BarcodeItem
     {
-     
+
         public GS1BatchNumber()
         {
             Id = "10";
@@ -13,5 +13,5 @@ namespace TI.GS1.Parser.AI
         }
     }
 
-   
+
 }

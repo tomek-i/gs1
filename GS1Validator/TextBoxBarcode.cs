@@ -6,18 +6,17 @@ using System.Windows.Forms;
 namespace GS1Validator
 {
     /// <summary>
-    /// 
+    /// Textbox with automatically parsing GS1 barcodes after set period of time.
     /// </summary>
+    /// TODO: instead of having a separate barcode found event, we should override the text changed and only throw it after the delay
     public sealed class TextBoxBarcode : TextBox
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        public event EventHandler BarcodeRecieved;
-        //private readonly List<char> _characterBytes = new List<char>();
         private readonly Timer _timerProcessInput = new Timer();
-
         private bool _canClear;
+        private readonly Stopwatch _st = new Stopwatch();
+
+        public event EventHandler BarcodeRecieved;
+
         public TimeSpan Delay { get; set; } = TimeSpan.FromSeconds(.5);
         public TimeSpan BarcodeRecievedTime { get; set; } = TimeSpan.FromSeconds(1);
 
@@ -39,7 +38,7 @@ namespace GS1Validator
 
 
 
-        readonly Stopwatch _st = new Stopwatch();
+
 
         /// <param name="e">An <see cref="T:System.EventArgs"/> that contains the event data. </param>
         protected override void OnTextChanged(EventArgs e)
@@ -54,8 +53,6 @@ namespace GS1Validator
         /// <param name="e">A <see cref="T:System.Windows.Forms.KeyPressEventArgs"/> that contains the event data. </param>
         protected override void OnKeyPress(KeyPressEventArgs e)
         {
-
-
             _st.Stop();
             base.OnKeyPress(e);
             e.Handled = true;
@@ -63,11 +60,9 @@ namespace GS1Validator
             if (_canClear)
             {
                 Clear();
-                //    Text = string.Empty;
                 _canClear = false;
             }
             Text += e.KeyChar;
-            //test.Add(st.Elapsed,e);
 
             if (_st.Elapsed.TotalMilliseconds > Delay.TotalMilliseconds)
             {
