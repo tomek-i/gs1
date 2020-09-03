@@ -37,6 +37,11 @@ namespace GS1Validator
             }
         }
 
-
+        private void label1_Click(object sender, EventArgs e)
+        {
+            var text = Clipboard.GetText();
+            Console.WriteLine(text);
+            textBoxBarcode.Text = text;
+        }
     }
 }

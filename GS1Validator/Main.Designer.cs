@@ -41,6 +41,7 @@
             this.label1.Size = new System.Drawing.Size(47, 13);
             this.label1.TabIndex = 1;
             this.label1.Text = "Barcode";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // flowLayoutPanel1
             // 
@@ -65,7 +66,6 @@
             this.textBoxBarcode.Location = new System.Drawing.Point(15, 25);
             this.textBoxBarcode.Multiline = true;
             this.textBoxBarcode.Name = "textBoxBarcode";
-            this.textBoxBarcode.ReadOnly = true;
             this.textBoxBarcode.Size = new System.Drawing.Size(425, 65);
             this.textBoxBarcode.TabIndex = 0;
             this.textBoxBarcode.BarcodeRecieved += new System.EventHandler(this.TextBoxBarcode_BarcodeRecieved);

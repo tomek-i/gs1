@@ -51,7 +51,7 @@ namespace TI.GS1.Parser
 
 
             _minLengthOfAi = ApplicationItemDictionary.Values.Min(x => x.Id.Length);
-            _maxLengthOfAi = ApplicationItemDictionary.Values.Min(x => x.Id.Length);
+            _maxLengthOfAi = ApplicationItemDictionary.Values.Max(x => x.Id.Length);
 
         }
 
